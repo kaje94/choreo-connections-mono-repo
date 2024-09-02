@@ -7,3 +7,16 @@ spec:
           type: REST
           networkVisibility: Public
           context: /
+    outbound:
+        serviceReferences:
+            - name: choreo:///thirdorgkaje/thirdorgproject1/auth-service/c5d5a/v1/PUBLIC
+              connectionConfig: 01ef6903-1af7-12e8-9b89-32771e9e8535
+              env:
+                - from: ServiceURL
+                  to: SERVICE_URL
+                - from: ConsumerKey
+                  to: CONSUMER_KEY
+                - from: ConsumerSecret
+                  to: CONSUMER_SECRET
+                - from: TokenURL
+                  to: TOKEN_URL
