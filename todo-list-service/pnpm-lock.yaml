@@ -11,6 +11,9 @@ importers:
       axios:
         specifier: ^1.7.5
         version: 1.7.7
+      axios-oauth-client:
+        specifier: ^2.2.0
+        version: 2.2.0(axios@1.7.7)
       body-parser:
         specifier: ^1.19.0
         version: 1.20.2
@@ -136,6 +139,12 @@ packages:
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+
+  axios-oauth-client@2.2.0:
+    resolution: {integrity: sha512-rRaDtK6CuPs+4lDqpAEc4s0c0/Zc2SF4HjVq5DDUL3FkwE/khlxZfnts3MKu1HANODBJ3YOViZVmevx/OUDS2Q==}
+    engines: {node: '>= 14'}
+    peerDependencies:
+      axios: ^1.2.1
 
   axios@1.7.7:
     resolution: {integrity: sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==}
@@ -1098,6 +1107,10 @@ snapshots:
   array-flatten@1.1.1: {}
 
   asynckit@0.4.0: {}
+
+  axios-oauth-client@2.2.0(axios@1.7.7):
+    dependencies:
+      axios: 1.7.7
 
   axios@1.7.7:
     dependencies:

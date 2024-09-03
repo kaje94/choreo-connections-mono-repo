@@ -1,22 +1,23 @@
 apiVersion: core.choreo.dev/v1beta1
 kind: ComponentConfig
 spec:
-    inbound:
-        - name: todo-list-service
-          port: 8080
-          type: REST
-          networkVisibility: Public
-          context: /
-    outbound:
-        serviceReferences:
-            - name: choreo:///thirdorgkaje/thirdorgproject1/auth-service/c5d5a/v1/PUBLIC
-              connectionConfig: 01ef69bc-851f-1da6-b92e-742aa6accdd9
-              env:
-                - from: ServiceURL
-                  to: SERVICE_URL
-                - from: ConsumerKey
-                  to: CONSUMER_KEY
-                - from: ConsumerSecret
-                  to: CONSUMER_SECRET
-                - from: TokenURL
-                  to: TOKEN_URL
+  inbound:
+    - name: todo-list-service
+      port: 8080
+      type: REST
+      networkVisibility: Public
+      context: /
+      schemaFilePath: openapi.yaml
+  outbound:
+    serviceReferences:
+      - name: choreo:///thirdorgkaje/thirdorgproject1/auth-service/c5d5a/v1/PUBLIC
+        connectionConfig: 01ef69bc-851f-1da6-b92e-742aa6accdd9
+        env:
+          - from: ServiceURL
+            to: SERVICE_URL
+          - from: ConsumerKey
+            to: CONSUMER_KEY
+          - from: ConsumerSecret
+            to: CONSUMER_SECRET
+          - from: TokenURL
+            to: TOKEN_URL
