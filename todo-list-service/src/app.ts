@@ -1,6 +1,5 @@
 import express from "express";
 import axios from "axios";
-import { TodoModel } from "./model";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -10,6 +9,14 @@ const port = 8080;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+interface Todo {
+  id: string;
+  title: string;
+  completed: boolean;
+}
+
+const todoList: Todo[] = [];
 
 app.use(async (req, res, next) => {
   try {
@@ -23,9 +30,8 @@ app.use(async (req, res, next) => {
 
 app.get("/", async (req, res) => {
   try {
-    console.log('Running "getAll" ', process.env.ENV1);
-    const todos = await TodoModel.findAll();
-    res.status(200).json(todos.map((item) => item.dataValues));
+    console.log('Running "getAll"');
+    res.status(200).json(todoList);
   } catch (error) {
     res.status(500).json({ message: "Error getting todos" });
   }
@@ -34,9 +40,9 @@ app.get("/", async (req, res) => {
 app.get("/:id", async (req, res) => {
   try {
     console.log('Running "getById"');
-    const todo = await TodoModel.findByPk(req.params.id);
+    const todo = todoList.find((item) => item.id === req.params.id);
     if (todo) {
-      res.status(200).json(todo.dataValues);
+      res.status(200).json(todo);
     } else {
       res.status(404).json({ message: "Todo not found" });
     }
@@ -48,8 +54,14 @@ app.get("/:id", async (req, res) => {
 app.post("/", async (req, res) => {
   try {
     console.log('Running "create"');
-    const todo = await TodoModel.create(req.body);
-    res.status(201).json(todo.dataValues);
+    const todo: Todo = {
+      ...req.body,
+      id: `${new Date().getTime().toString()}_${Math.floor(
+        Math.random() * 10000
+      )}`,
+    };
+    todoList.push(todo);
+    res.status(201).json(todo);
   } catch (error) {
     res.status(500).json({ message: "Error creating todo" });
   }
@@ -58,10 +70,11 @@ app.post("/", async (req, res) => {
 app.put("/:id", async (req, res) => {
   try {
     console.log('Running "update"');
-    const todo = await TodoModel.findByPk(req.params.id);
-    await todo?.update(req.body);
-    if (todo) {
-      res.status(200).json(todo);
+    const todoIndex = todoList.findIndex((item) => item.id === req.params.id);
+    if (todoIndex >= 0) {
+      const tempItem = { ...todoList[todoIndex], ...req.body };
+      todoList[todoIndex] = tempItem;
+      res.status(200).json(tempItem);
     } else {
       res.status(404).json({ message: "Todo not found" });
     }
@@ -73,8 +86,9 @@ app.put("/:id", async (req, res) => {
 app.delete("/:id", async (req, res) => {
   try {
     console.log('Running "delete"');
-    const todo = await TodoModel.destroy({ where: { id: req.params.id } });
-    if (todo) {
+    const todoIndex = todoList.findIndex((item) => item.id === req.params.id);
+    if (todoIndex >= 0) {
+      todoList.splice(todoIndex, 1);
       res.status(200).json({ message: "Todo deleted" });
     } else {
       res.status(404).json({ message: "Todo not found" });
