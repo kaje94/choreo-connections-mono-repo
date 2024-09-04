@@ -1,0 +1,17 @@
+openapi: 3.0.3
+info:
+  title: Auth service API
+  description: API for managing auth service
+  version: 1.0.0
+servers:
+  - url: http://localhost:8081
+paths:
+  /:
+    get:
+      summary: Verify auth
+      operationId: verifyAuth
+      tags:
+        - Auth
+      responses:
+        "200":
+          description: verification status
