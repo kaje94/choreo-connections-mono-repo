@@ -1,5 +1,6 @@
 import express from "express";
 import axios from "axios";
+import oauth from "axios-oauth-client";
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
@@ -18,9 +19,23 @@ interface Todo {
 
 const todoList: Todo[] = [];
 
+const serviceURL = process.env.SERVICE_URL;
+
 app.use(async (req, res, next) => {
   try {
-    await axios.get("http://localhost:8081", { timeout: 10000 });
+    const getClientCredentials = oauth.clientCredentials(
+      axios.create(),
+      process.env.TOKEN_URL,
+      process.env.CONSUMER_KEY,
+      process.env.CONSUMER_SECRET
+    );
+    const auth = await getClientCredentials(undefined);
+    const accessToken = auth.access_token;
+
+    await axios.get(serviceURL!, {
+      timeout: 10000,
+      headers: { Authorization: `Bearer ${accessToken}` },
+    });
     next();
   } catch {
     console.error("Failed to reach auth service");
