@@ -7,4 +7,10 @@ spec:
       type: REST
       networkVisibility: Public
       context: /
-      schemaFilePath: openapi.yaml
+      schemaFilePath: openapi copy.yaml
+    - name: tesrse 1 updated
+      port: 8080
+      type: REST
+      networkVisibility: Public
+      context: /
+      schemaFilePath: openapi-(1).yaml
