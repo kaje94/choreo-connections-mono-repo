@@ -2,7 +2,7 @@ apiVersion: core.choreo.dev/v1beta1
 kind: ComponentConfig
 spec:
   inbound:
-    - name: notes-svc
+    - name: notes-svc-updated
       port: 8080
       type: REST
       networkVisibility: Public
