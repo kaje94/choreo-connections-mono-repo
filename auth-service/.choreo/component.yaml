@@ -8,4 +8,6 @@ endpoints:
     displayName: auth-svc
     networkVisibilities:
       - Public
+      - Project
+      - Organization
     schemaFilePath: openapi.yaml
