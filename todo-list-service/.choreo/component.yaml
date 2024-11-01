@@ -1,4 +1,6 @@
-schemaVersion: 1.1
+apiVersion: ''
+kind: ''
+spec: {}
 endpoints:
   - name: endpoint-1
     service:
@@ -8,4 +10,6 @@ endpoints:
     displayName: endpoint-1
     networkVisibilities:
       - Public
+      - Organization
+      - Project
     schemaFilePath: openapi.yaml
