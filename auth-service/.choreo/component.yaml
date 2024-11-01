@@ -1,13 +1,15 @@
-schemaVersion: 1.1
+apiVersion: ''
+kind: ''
+spec: {}
 endpoints:
-  - name: auth-svc
+  - name: endpoint-1
     service:
       port: 8080
       basePath: /
     type: REST
-    displayName: auth-svc
+    displayName: endpoint-1
     networkVisibilities:
       - Public
-      - Project
       - Organization
+      - Project
     schemaFilePath: openapi.yaml
