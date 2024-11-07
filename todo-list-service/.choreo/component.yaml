@@ -1,0 +1,13 @@
+schemaVersion: 1.1
+endpoints:
+  - name: todo-list-service
+    service:
+      port: 8080
+      basePath: /
+    type: REST
+    displayName: todo-list-service
+    networkVisibilities:
+      - Public
+      - Project
+      - Organization
+    schemaFilePath: openapi.yaml
